@@ -104,42 +104,42 @@ GO
 /* Использование */
 -- Получение текстового представления диапазона дат
 --один день
-SELECT dbo.sf_getPeriodNameByBounds('2019-04-05','2019-04-05',0, 0) -- 5.04.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-04-05','2019-04-05',1, 0) -- 5 апреля 2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-04-05','2019-04-05',0, 1) -- 05.04.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-04-05','2019-04-05',1, 1) -- 05 апреля 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-04-05','2019-04-05',0, 0) -- 5.04.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-04-05','2019-04-05',1, 0) -- 5 апреля 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-04-05','2019-04-05',0, 1) -- 05.04.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-04-05','2019-04-05',1, 1) -- 05 апреля 2019 г.
 
 --меньше месяца
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-01-09',0, 0) -- с 1 по 9.01.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-01-09',1, 0) -- с 1 по 9 января 2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-01-09',0, 1) -- с 01 по 09.01.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-01-09',1, 1) -- с 01 по 09 января 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-01-09',0, 0) -- с 1 по 9.01.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-01-09',1, 0) -- с 1 по 9 января 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-01-09',0, 1) -- с 01 по 09.01.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-01-09',1, 1) -- с 01 по 09 января 2019 г.
 
 --месяц
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-01-31',0, DEFAULT) -- 01.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-01-31',1, DEFAULT) -- январь 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-01-31',0, DEFAULT) -- 01.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-01-31',1, DEFAULT) -- январь 2019 г.
 
 --меньше квартала
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-03-05',0, 0) -- с 1.01 по 5.03.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-03-05',1, 0) -- с 1 января по 5 марта 2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-03-05',0, 1) -- с 01.01 по 05.03.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-03-05',1, 1) -- с 01 января по 05 марта 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-03-05',0, 0) -- с 1.01 по 5.03.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-03-05',1, 0) -- с 1 января по 5 марта 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-03-05',0, 1) -- с 01.01 по 05.03.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-03-05',1, 1) -- с 01 января по 05 марта 2019 г.
 
 --квартал
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-03-31',DEFAULT, DEFAULT)  -- 1 квартал 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-03-31',DEFAULT, DEFAULT)  -- 1 квартал 2019 г.
 
 --меньше года
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-06-05',0, 0) -- с 1.01 по 5.06.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-06-05',1, 0) -- с 1 января по 5 июня 2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-06-05',0, 1) -- с 01.01 по 05.06.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-06-05',1, 1) -- с 01 января по 05 июня 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-06-05',0, 0) -- с 1.01 по 5.06.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-06-05',1, 0) -- с 1 января по 5 июня 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-06-05',0, 1) -- с 01.01 по 05.06.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-06-05',1, 1) -- с 01 января по 05 июня 2019 г.
 
 --год
-SELECT dbo.sf_getPeriodNameByBounds('2019-01-01','2019-12-31',DEFAULT, DEFAULT) -- 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2019-01-01','2019-12-31',DEFAULT, DEFAULT) -- 2019 г.
 
 --больше года
-SELECT dbo.sf_getPeriodNameByBounds('2018-04-05','2019-06-05',0, 0) -- с 5.04.2018 по 5.06.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2018-04-05','2019-06-05',1, 0) -- с 5 апреля 2018 по 5 июня 2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2018-04-05','2019-06-05',0, 1) -- с 05.04.2018 по 05.06.2019 г.
-SELECT dbo.sf_getPeriodNameByBounds('2018-04-05','2019-06-05',1, 1) -- с 05 апреля 2018 по 05 июня 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2018-04-05','2019-06-05',0, 0) -- с 5.04.2018 по 5.06.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2018-04-05','2019-06-05',1, 0) -- с 5 апреля 2018 по 5 июня 2019 г.
+SELECT dbo.GetPeriodNameByBounds('2018-04-05','2019-06-05',0, 1) -- с 05.04.2018 по 05.06.2019 г.
+SELECT dbo.GetPeriodNameByBounds('2018-04-05','2019-06-05',1, 1) -- с 05 апреля 2018 по 05 июня 2019 г.
 
