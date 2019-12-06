@@ -35,19 +35,19 @@ BEGIN
           @culture NVARCHAR(8) = 'ru-RU';
 
   WITH begin_bounds AS (
-  SELECT dbo.sf_getPeriodBoundByDate('yy', @BeginDate, 0, DEFAULT) AS LeftBoundYear,
-         dbo.sf_getPeriodBoundByDate('yy', @BeginDate, 1, DEFAULT) AS RightBoundYear,
-         dbo.sf_getPeriodBoundByDate('qq', @BeginDate, 0, DEFAULT) AS LeftBoundQuarter,
-         dbo.sf_getPeriodBoundByDate('qq', @BeginDate, 1, DEFAULT) AS RightBoundQuarter,
-         dbo.sf_getPeriodBoundByDate('mm', @BeginDate, 0, DEFAULT) AS LeftBoundMonth,
-         dbo.sf_getPeriodBoundByDate('mm', @BeginDate, 1, DEFAULT) AS RightBoundMonth)
+  SELECT dbo.GetPeriodBoundByDate('yy', @BeginDate, 0, DEFAULT) AS LeftBoundYear,
+         dbo.GetPeriodBoundByDate('yy', @BeginDate, 1, DEFAULT) AS RightBoundYear,
+         dbo.GetPeriodBoundByDate('qq', @BeginDate, 0, DEFAULT) AS LeftBoundQuarter,
+         dbo.GetPeriodBoundByDate('qq', @BeginDate, 1, DEFAULT) AS RightBoundQuarter,
+         dbo.GetPeriodBoundByDate('mm', @BeginDate, 0, DEFAULT) AS LeftBoundMonth,
+         dbo.GetPeriodBoundByDate('mm', @BeginDate, 1, DEFAULT) AS RightBoundMonth)
   , end_bounds AS (
-  SELECT dbo.sf_getPeriodBoundByDate('yy', @EndDate, 0, DEFAULT) AS LeftBoundYear,
-         dbo.sf_getPeriodBoundByDate('yy', @EndDate, 1, DEFAULT) AS RightBoundYear,
-         dbo.sf_getPeriodBoundByDate('qq', @EndDate, 0, DEFAULT) AS LeftBoundQuarter,
-         dbo.sf_getPeriodBoundByDate('qq', @EndDate, 1, DEFAULT) AS RightBoundQuarter,
-         dbo.sf_getPeriodBoundByDate('mm', @EndDate, 0, DEFAULT) AS LeftBoundMonth,
-         dbo.sf_getPeriodBoundByDate('mm', @EndDate, 1, DEFAULT) AS RightBoundMonth)
+  SELECT dbo.GetPeriodBoundByDate('yy', @EndDate, 0, DEFAULT) AS LeftBoundYear,
+         dbo.GetPeriodBoundByDate('yy', @EndDate, 1, DEFAULT) AS RightBoundYear,
+         dbo.GetPeriodBoundByDate('qq', @EndDate, 0, DEFAULT) AS LeftBoundQuarter,
+         dbo.GetPeriodBoundByDate('qq', @EndDate, 1, DEFAULT) AS RightBoundQuarter,
+         dbo.GetPeriodBoundByDate('mm', @EndDate, 0, DEFAULT) AS LeftBoundMonth,
+         dbo.GetPeriodBoundByDate('mm', @EndDate, 1, DEFAULT) AS RightBoundMonth)
   , output_text AS (
   SELECT IIF(    @BeginDate = @EndDate,
                  FORMATMESSAGE('%s%s',
