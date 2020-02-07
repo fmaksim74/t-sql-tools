@@ -1,7 +1,7 @@
 /*****************************
 * Скалярная функция (SQLCMD) *
 *****************************/
-:setvar dbname "ComplexBank"
+:setvar dbname "test"
 :setvar schema "dbo"
 :setvar name "GetPeriodBoundByDate"
 
@@ -45,16 +45,15 @@ BEGIN
                        DATEFROMPARTS(DATEPART(YEAR, @date), DATEPART(QUARTER, @date) * 3 - 2, 1),
                        EOMONTH(DATEFROMPARTS(DATEPART(YEAR, @date), DATEPART(QUARTER, @date) * 3, 1))))
     WHEN @datepart IN ('month','mm','m')
-      THEN DATEADD(MONTH, @shift,
-                   IIF(@rside = 0,
-                       DATEFROMPARTS(DATEPART(YEAR, @date), DATEPART(MONTH, @date), 1),
-                       EOMONTH(DATEFROMPARTS(DATEPART(YEAR, @date), DATEPART(MONTH, @date),1))))
+      THEN IIF(@rside = 0,
+               DATEFROMPARTS(DATEPART(YEAR, @date), DATEPART(MONTH, DATEADD(MONTH, @shift, @date)), 1),
+               EOMONTH(DATEFROMPARTS(DATEPART(YEAR, DATEADD(MONTH, @shift, @date)),
+                                     DATEPART(MONTH, DATEADD(MONTH, @shift, @date)),1)))
     WHEN @datepart IN ('week','wk','ww')
-      THEN 
-        DATEADD(week, @shift, 
+      THEN DATEADD(week, @shift, 
                    IIF(@rside = 0,
-                       DATEFROMPARTS(DATEPART(YEAR, @date), DATEPART(MONTH, @date), DATEPART(DAY,@date) - DATEPART(weekday, @date) + 1),
-                       DATEADD(DAY, 7, DATEFROMPARTS(DATEPART(YEAR, @date), DATEPART(MONTH, @date), DATEPART(DAY,@date) - DATEPART(weekday, @date)))))
+                       DATEADD(DAY, (-1) * DATEPART(weekday,@date) + 1, @date),
+                       DATEADD(DAY, (-1) * DATEPART(weekday,@date) + 7, @date)))
     ELSE NULL
   END;
 
@@ -65,8 +64,24 @@ GO
 :exit
 
 /* Использование */
-SELECT dbo.GetPeriodBoundByDate('yy', GETDATE(), 0, 0) -- начало текущего года
-SELECT dbo.GetPeriodBoundByDate('yy', GETDATE(), 1, 0) -- конец текущего года
+DECLARE @date DATE = '20200201', @shift INT = -2;
 
-SELECT dbo.GetPeriodBoundByDate('qq', GETDATE(), 0, 0) -- начало текущего квартала
-SELECT dbo.GetPeriodBoundByDate('qq', GETDATE(), 1, 0) -- конец текущего квартала
+SELECT PART='YEAR',
+       [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
+       YB=dbo.GetPeriodBoundByDate('yy', @date, 0, @shift), -- начало текущего года
+       YE=dbo.GetPeriodBoundByDate('yy', @date, 1, @shift)  -- конец текущего года
+UNION ALL
+SELECT PART='QUARTER',
+       [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
+       QB=dbo.GetPeriodBoundByDate('qq', @date, 0, @shift), -- начало текущего квартала
+       QE=dbo.GetPeriodBoundByDate('qq', @date, 1, @shift)  -- конец текущего квартала
+UNION ALL
+SELECT PART='WEEK',
+       [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
+       WB=dbo.GetPeriodBoundByDate('ww', @date, 0, @shift), -- начало текущей недели
+       WE=dbo.GetPeriodBoundByDate('ww', @date, 1, @shift)  -- конец текущей недели
+UNION ALL
+SELECT PART='MONTH',
+       [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
+       MB=dbo.GetPeriodBoundByDate('mm', @date, 0, @shift), -- начало текущего месяца
+       ME=dbo.GetPeriodBoundByDate('mm', @date, 1, @shift)  -- конец текущего месяца
