@@ -64,24 +64,24 @@ GO
 :exit
 
 /* Использование */
-DECLARE @date DATE = '20200201', @shift INT = -2;
+DECLARE @date DATE = '20200210', @shift INT = 0;
 
 SELECT PART='YEAR',
        [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
-       YB=dbo.GetPeriodBoundByDate('yy', @date, 0, @shift), -- начало текущего года
-       YE=dbo.GetPeriodBoundByDate('yy', @date, 1, @shift)  -- конец текущего года
+       YB=dbo.sf_GetPeriodBoundByDate('yy', @date, 0, @shift), -- начало текущего года
+       YE=dbo.sf_GetPeriodBoundByDate('yy', @date, 1, @shift)  -- конец текущего года
 UNION ALL
 SELECT PART='QUARTER',
        [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
-       QB=dbo.GetPeriodBoundByDate('qq', @date, 0, @shift), -- начало текущего квартала
-       QE=dbo.GetPeriodBoundByDate('qq', @date, 1, @shift)  -- конец текущего квартала
+       QB=dbo.sf_GetPeriodBoundByDate('qq', @date, 0, @shift), -- начало текущего квартала
+       QE=dbo.sf_GetPeriodBoundByDate('qq', @date, 1, @shift)  -- конец текущего квартала
 UNION ALL
 SELECT PART='WEEK',
        [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
-       WB=dbo.GetPeriodBoundByDate('ww', @date, 0, @shift), -- начало текущей недели
-       WE=dbo.GetPeriodBoundByDate('ww', @date, 1, @shift)  -- конец текущей недели
+       WB=dbo.sf_GetPeriodBoundByDate('ww', @date, 0, @shift), -- начало текущей недели
+       WE=dbo.sf_GetPeriodBoundByDate('ww', @date, 1, @shift)  -- конец текущей недели
 UNION ALL
 SELECT PART='MONTH',
        [SHIFT] = FORMATMESSAGE('CURRENT + ( %d )', @shift),
-       MB=dbo.GetPeriodBoundByDate('mm', @date, 0, @shift), -- начало текущего месяца
-       ME=dbo.GetPeriodBoundByDate('mm', @date, 1, @shift)  -- конец текущего месяца
+       MB=dbo.sf_GetPeriodBoundByDate('mm', @date, 0, @shift), -- начало текущего месяца
+       ME=dbo.sf_GetPeriodBoundByDate('mm', @date, 1, @shift)  -- конец текущего месяца
